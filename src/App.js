@@ -7,7 +7,7 @@ function App() {
       id: 1,
       name: "Pure Dharmavaram Silk Saree",
       price: "₹25,000",
-      image: "https://via.placeholder.com/300x400?text=Silk+Saree",
+      image: "/premium-logo.png",
     },
     {
       id: 2,
@@ -27,11 +27,17 @@ function App() {
     <div className="app">
       {/* HEADER */}
       <header className="header">
-        <img src="/logo.png" alt="Logo" className="logo" />
-        <h1>Dharmavaram SLB Silk Sarees</h1>
-        <p>Authentic Handloom Silk Sarees</p>
+      <video
+            className="header-video"
+            src="/header-video.mp4"
+            autoPlay
+            muted
+            playsInline
+          />
       </header>
-
+      <div className="notification">
+  ⚠️ This app is under development
+</div>
       {/* PRODUCTS */}
       <section className="product-container">
         {products.map((product) => (
