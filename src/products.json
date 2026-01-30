@@ -1,0 +1,80 @@
+[
+    {
+      "id": 1,
+      "folder": "saree-1",
+      "name": "Pure Dharmavaram Silk Saree",
+      "price": 2000,
+      "originalPrice": 3000
+    },
+    {
+      "id": 2,
+      "folder": "saree-2",
+      "name": "Traditional Wedding Silk Saree",
+      "price": 2500,
+      "originalPrice": 3500
+    },
+    {
+        "id": 3,
+        "folder": "saree-3",
+        "name": "Traditional Wedding Silk Saree",
+        "price": 2500,
+        "originalPrice": 3500
+      },
+    {
+        "id": 4,
+        "folder": "saree-4",
+        "name": "Traditional Wedding Silk Saree",
+        "price": 2500,
+        "originalPrice": 3500
+      },
+    {
+        "id": 5,
+        "folder": "saree-5",
+        "name": "Traditional Wedding Silk Saree",
+        "price": 2500,
+        "originalPrice": 3500
+      },
+    {
+        "id": 6,
+        "folder": "saree-6",
+        "name": "Traditional Wedding Silk Saree",
+        "price": 2500,
+        "originalPrice": 3500
+      },
+    {
+        "id": 7,
+        "folder": "saree-7",
+        "name": "Traditional Wedding Silk Saree",
+        "price": 2500,
+        "originalPrice": 3500
+      },
+    {
+        "id": 8,
+        "folder": "saree-8",
+        "name": "Traditional Wedding Silk Saree",
+        "price": 2500,
+        "originalPrice": 3500
+      },
+    {
+        "id": 9,
+        "folder": "saree-9",
+        "name": "Traditional Wedding Silk Saree",
+        "price": 2500,
+        "originalPrice": 3500
+      },
+    {
+        "id": 10,
+        "folder": "saree-10",
+        "name": "Traditional Wedding Silk Saree",
+        "price": 2500,
+        "originalPrice": 3500
+      },
+    {
+        "id": 11,
+        "folder": "saree-11",
+        "name": "Traditional Wedding Silk Saree",
+        "price": 2500,
+        "originalPrice": 3500
+      }
+  ]
+  

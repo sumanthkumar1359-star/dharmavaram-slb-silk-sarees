@@ -1,0 +1,34 @@
+{
+  "reviews": [
+    {
+      "id": 1769775091951,
+      "name": "wwww",
+      "comment": "www",
+      "rating": 3
+    },
+    {
+      "id": 1769775108081,
+      "name": "qwedq",
+      "comment": "qwe",
+      "rating": 3
+    },
+    {
+      "id": 1769775117436,
+      "name": "asdad",
+      "comment": "rqwr",
+      "rating": 3
+    },
+    {
+      "id": 1769775127186,
+      "name": "wefwf",
+      "comment": "wer",
+      "rating": 3
+    },
+    {
+      "id": 1769787664162,
+      "name": "sl",
+      "comment": "sl",
+      "rating": 4
+    }
+  ]
+}
