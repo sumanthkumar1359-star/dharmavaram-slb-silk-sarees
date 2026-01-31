@@ -387,39 +387,51 @@ body {
   font-weight: 600;
   margin-top: 10px;
 }
+/* ===== PREMIUM LOGIN BUTTON ===== */
 .auth-buttons {
-  position: absolute;
+  position: absolute; /* place on top-right corner */
   top: 20px;
-  right: 20px;
+  right: 30px;
+  z-index: 10;
   display: flex;
-  gap: 10px;
-}
-
-.auth-buttons button {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.2s;
+  gap: 15px;
 }
 
 .login-btn {
-  background-color: #ffffffaa;
-  color: #333;
+  background: linear-gradient(90deg, #1e90ff, #00c6ff); /* premium sky-blue gradient */
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 28px; /* bigger button for emphasis */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(30, 144, 255, 0.4);
 }
 
 .login-btn:hover {
-  background-color: #4b9fb9;
+  background: linear-gradient(90deg, #00c6ff, #1e90ff);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(30, 144, 255, 0.5);
 }
 
-.signup-btn {
-  background-color: #4b9fb9;
-  color: #fff;
+.login-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 5px 12px rgba(30, 144, 255, 0.4);
 }
 
-.signup-btn:hover {
-  background-color: #08c4ea;
+/* OPTIONAL RESPONSIVE ADJUSTMENTS */
+@media (max-width: 600px) {
+  .auth-buttons {
+    top: 15px;
+    right: 20px;
+  }
+
+  .login-btn {
+    padding: 10px 22px;
+    font-size: 15px;
+  }
 }
 
 
@@ -479,3 +491,191 @@ body {
   opacity: 1;
   transform: translateY(-50%) translateX(-15px);
 }
+
+/* ===== Auth Buttons ===== */
+.auth-buttons {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.login-btn,
+.signup-btn {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.login-btn {
+  background: #fff;
+  color: #5c0a1d;
+}
+
+.signup-btn {
+  background: linear-gradient(135deg, #a3002a, #e0b15c);
+  color: #fff;
+}
+
+/* ===== Welcome Message ===== */
+.welcome-text {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #5c0a1d;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+/* ===== LOGIN MODAL STYLING ===== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal {
+  background: #ffffff;
+  border-radius: 14px;
+  width: 400px;
+  max-width: 90%;
+  padding: 30px 35px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  position: relative;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal h3 {
+  margin: 0 0 20px;
+  text-align: center;
+  font-size: 22px;
+  color: #0a3d62;
+  font-weight: 600;
+}
+
+/* INPUT FIELDS */
+.modal input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.modal input:focus {
+  outline: none;
+  border-color: #1e90ff;
+  box-shadow: 0 0 8px rgba(30, 144, 255, 0.3);
+}
+
+/* OTP / LOGIN BUTTONS */
+.modal button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-bottom: 10px;
+}
+
+/* Send OTP Button */
+.modal button:nth-of-type(1) {
+  background: linear-gradient(90deg, #1e90ff, #00c6ff);
+  color: #fff;
+}
+
+.modal button:nth-of-type(1):hover {
+  background: linear-gradient(90deg, #00c6ff, #1e90ff);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(30,144,255,0.4);
+}
+
+/* Verify OTP / Login Button */
+.modal button:nth-of-type(2) {
+  background: linear-gradient(90deg, #0a3d62, #1e3c72);
+  color: #fff;
+}
+
+.modal button:nth-of-type(2):hover {
+  background: linear-gradient(90deg, #1e3c72, #0a3d62);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Cancel Button */
+.modal button:nth-of-type(3) {
+  background: #ff4757;
+  color: #fff;
+}
+
+.modal button:nth-of-type(3):hover {
+  background: #e84118;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255,71,87,0.4);
+}
+
+/* RECAPTCHA CONTAINER */
+#recaptcha-container {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+/* LABELS */
+.modal label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #0a3d62;
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 450px) {
+  .modal {
+    width: 90%;
+    padding: 25px 20px;
+  }
+
+  .modal button {
+    font-size: 15px;
+    padding: 10px;
+  }
+
+  .modal input {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+}
+

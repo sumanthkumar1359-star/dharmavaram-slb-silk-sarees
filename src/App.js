@@ -2,16 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 import products from "./products.json";
 import { FaStore, FaInstagram, FaWhatsapp, FaVideo } from "react-icons/fa";
-
-import {
-  collection,
-  addDoc,
-  getDocs,
-  query,
-  orderBy,
-  serverTimestamp
-} from "firebase/firestore";
-
+import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import { auth } from "./firebase";
+import { doc, getDoc, collection, getDocs, addDoc, query, orderBy, serverTimestamp } from "firebase/firestore";
 import { db } from "./firebase";
 
 /* Load product images */
@@ -24,6 +17,17 @@ const getImages = (folder) => {
 };
 
 function App() {
+  // ======== Auth & User States ========
+  const [authUser, setAuthUser] = useState(null);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [phoneInput, setPhoneInput] = useState("+91");
+  const [otpInput, setOtpInput] = useState("");
+  const recaptchaVerifierRef = useRef(null);
+  const confirmationResultRef = useRef(null);
+  const [userAddresses, setUserAddresses] = useState([]);
+  const [userCart, setUserCart] = useState(null);
+
+  // ======== Products & Reviews ========
   const [imageIndex, setImageIndex] = useState({});
   const [reviews, setReviews] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -32,9 +36,27 @@ function App() {
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
 
+  // ======== Video ========
   const videoRef = useRef(null);
   const [playedOnce, setPlayedOnce] = useState(false);
 
+  // ======== Load user data from Firestore ========
+  const loadUserData = async (uid) => {
+    try {
+      const userDoc = await getDoc(doc(db, "users", uid));
+      if (userDoc.exists()) {
+        // optional: set profile state
+      }
+      const addrSnap = await getDocs(collection(db, "users", uid, "addresses"));
+      setUserAddresses(addrSnap.docs.map(d => ({ id: d.id, ...d.data() })));
+      const cartDoc = await getDoc(doc(db, "users", uid, "cart"));
+      setUserCart(cartDoc.exists() ? cartDoc.data() : null);
+    } catch (err) {
+      console.error("loadUserData error", err);
+    }
+  };
+
+  // ======== Video play on scroll/click ========
   useEffect(() => {
     const playOnce = () => {
       if (!playedOnce && videoRef.current) {
@@ -52,6 +74,7 @@ function App() {
     };
   }, [playedOnce]);
 
+  // ======== Fetch reviews ========
   useEffect(() => {
     const fetchReviews = async () => {
       try {
@@ -72,6 +95,7 @@ function App() {
     fetchReviews();
   }, []);
 
+  // ======== Review submission ========
   const handleSubmitReview = async (e) => {
     e.preventDefault();
     if (!name.trim() || !comment.trim() || rating === 0) return;
@@ -98,8 +122,7 @@ function App() {
     }
   };
 
-  const reviewsToShow = showAllReviews ? reviews : reviews.slice(0, 3);
-
+  // ======== Product image navigation ========
   const prevImage = (id) => {
     setImageIndex((prev) => {
       const current = prev[id] || 0;
@@ -116,6 +139,52 @@ function App() {
     });
   };
 
+  const reviewsToShow = showAllReviews ? reviews : reviews.slice(0, 3);
+
+  // ======== Send OTP ========
+  const sendOtp = async () => {
+    try {
+      if (!recaptchaVerifierRef.current) {
+        recaptchaVerifierRef.current = new RecaptchaVerifier(
+          "recaptcha-container",
+          { size: "invisible" },
+          auth
+        );
+      }
+      const phoneNumber = phoneInput.startsWith("+")
+        ? phoneInput
+        : `+91${phoneInput.replace(/\D/g, "")}`;
+      const confirmationResult = await signInWithPhoneNumber(
+        auth,
+        phoneNumber,
+        recaptchaVerifierRef.current
+      );
+      confirmationResultRef.current = confirmationResult;
+      alert("OTP sent to " + phoneNumber);
+    } catch (err) {
+      console.error("sendOtp error:", err);
+      alert("Failed to send OTP. Check console for details.");
+    }
+  };
+
+  // ======== Verify OTP ========
+  const verifyOtp = async () => {
+    try {
+      if (!confirmationResultRef.current) {
+        alert("Please request OTP first");
+        return;
+      }
+      const result = await confirmationResultRef.current.confirm(otpInput);
+      const user = result.user;
+      setAuthUser(user);
+      await loadUserData(user.uid);
+      setShowLoginModal(false);
+    } catch (err) {
+      console.error("verifyOtp error:", err);
+      alert("Invalid or expired OTP");
+    }
+  };
+
   return (
     <div className="app">
       {/* HEADER */}
@@ -128,17 +197,57 @@ function App() {
           playsInline
           preload="auto"
         />
-
-        {/* Login / Sign Up buttons */}
         <div className="auth-buttons">
-          <button className="login-btn" onClick={() => alert("Login clicked")}>
+          <button className="login-btn" onClick={() => setShowLoginModal(true)}>
             Login
-          </button>
-          <button className="signup-btn" onClick={() => alert("Sign Up clicked")}>
-            Sign Up
           </button>
         </div>
       </header>
+
+      {/* LOGIN MODAL */}
+      {showLoginModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h3>Login with Phone</h3>
+            <div id="recaptcha-container"></div>
+
+            <label>Phone Number</label>
+            <input
+              value={phoneInput}
+              onChange={(e) => setPhoneInput(e.target.value)}
+              placeholder="+91XXXXXXXXXX"
+            />
+            <button onClick={sendOtp}>Send OTP</button>
+
+            <label>OTP</label>
+            <input
+              value={otpInput}
+              onChange={(e) => setOtpInput(e.target.value)}
+              placeholder="Enter OTP"
+            />
+            <button onClick={verifyOtp}>Verify & Login</button>
+
+            <button onClick={() => setShowLoginModal(false)}>Cancel</button>
+          </div>
+        </div>
+      )}
+
+      {/* USER PANEL */}
+      {authUser && (
+        <div className="user-panel">
+          <strong>Logged in: {authUser.phoneNumber}</strong>
+          <div>
+            <h4>Addresses</h4>
+            {userAddresses.map((a) => (
+              <div key={a.id}>{a.line1 || a.name}</div>
+            ))}
+          </div>
+          <div>
+            <h4>Cart</h4>
+            {userCart ? JSON.stringify(userCart) : "No cart data"}
+          </div>
+        </div>
+      )}
 
       <div className="notification">⚠️ This app is under development</div>
 
@@ -277,40 +386,33 @@ function App() {
               className="view-all-btn"
               onClick={() => setShowAllReviews((p) => !p)}
             >
-              {showAllReviews
-                ? "Show Less"
-                : `View All Reviews (${reviews.length})`}
+              {showAllReviews ? "Show Less" : `View All Reviews (${reviews.length})`}
             </button>
           )}
         </div>
       </div>
 
+      {/* Floating Actions */}
+      <div className="floating-actions">
+        <button className="action-btn">
+          <FaStore size={28} color="#FFD700" />
+          <span className="tooltip-text">Visit Store</span>
+        </button>
+        <button className="action-btn">
+          <FaInstagram size={28} color="#E1306C" />
+          <span className="tooltip-text">Instagram</span>
+        </button>
+        <button className="action-btn">
+          <FaWhatsapp size={28} color="#25D366" />
+          <span className="tooltip-text">WhatsApp</span>
+        </button>
+        <button className="action-btn">
+          <FaVideo size={28} color="#FF4500" />
+          <span className="tooltip-text">Book Video Call</span>
+        </button>
+      </div>
 
-
-     
-<div className="floating-actions">
-  <button className="action-btn">
-    <FaStore size={28} color="#FFD700" />   {/* Gold for Visit Store */}
-    <span className="tooltip-text">Visit Store</span>
-  </button>
-  <button className="action-btn">
-    <FaInstagram size={28} color="#E1306C" />   {/* Instagram pink gradient */}
-    <span className="tooltip-text">Instagram</span>
-  </button>
-  <button className="action-btn">
-    <FaWhatsapp size={28} color="#25D366" />   {/* WhatsApp green */}
-    <span className="tooltip-text">WhatsApp</span>
-  </button>
-  <button className="action-btn">
-    <FaVideo size={28} color="#FF4500" />   {/* Orange / red for Video Call */}
-    <span className="tooltip-text">Book Video Call</span>
-  </button>
-</div>
-
-
-      <footer className="footer">
-        © 2026 Dharmavaram SLB Silk Sarees
-      </footer>
+      <footer className="footer">© 2026 Dharmavaram SLB Silk Sarees</footer>
     </div>
   );
 }
