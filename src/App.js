@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 import products from "./products.json";
+import { FaStore, FaInstagram, FaWhatsapp, FaVideo } from "react-icons/fa";
 
 import {
   collection,
@@ -24,8 +25,6 @@ const getImages = (folder) => {
 
 function App() {
   const [imageIndex, setImageIndex] = useState({});
-
-  // Review states
   const [reviews, setReviews] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [showAllReviews, setShowAllReviews] = useState(false);
@@ -33,9 +32,6 @@ function App() {
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
 
-  /* ============================
-     VIDEO PLAY ONCE (SAFE)
-     ============================ */
   const videoRef = useRef(null);
   const [playedOnce, setPlayedOnce] = useState(false);
 
@@ -48,19 +44,14 @@ function App() {
         window.removeEventListener("click", playOnce);
       }
     };
-
     window.addEventListener("scroll", playOnce);
     window.addEventListener("click", playOnce);
-
     return () => {
       window.removeEventListener("scroll", playOnce);
       window.removeEventListener("click", playOnce);
     };
   }, [playedOnce]);
 
-  /* ============================
-     FETCH REVIEWS FROM FIREBASE
-     ============================ */
   useEffect(() => {
     const fetchReviews = async () => {
       try {
@@ -68,25 +59,19 @@ function App() {
           collection(db, "reviews"),
           orderBy("createdAt", "desc")
         );
-
         const snapshot = await getDocs(q);
         const data = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data()
         }));
-
         setReviews(data);
       } catch (error) {
         console.error("Error fetching reviews:", error);
       }
     };
-
     fetchReviews();
   }, []);
 
-  /* ============================
-     SUBMIT REVIEW
-     ============================ */
   const handleSubmitReview = async (e) => {
     e.preventDefault();
     if (!name.trim() || !comment.trim() || rating === 0) return;
@@ -98,12 +83,10 @@ function App() {
         rating,
         createdAt: serverTimestamp()
       });
-
       setReviews((prev) => [
         { id: docRef.id, name, comment, rating },
         ...prev
       ]);
-
       setName("");
       setComment("");
       setRating(0);
@@ -117,9 +100,6 @@ function App() {
 
   const reviewsToShow = showAllReviews ? reviews : reviews.slice(0, 3);
 
-  /* ============================
-     IMAGE NAVIGATION (FIXED)
-     ============================ */
   const prevImage = (id) => {
     setImageIndex((prev) => {
       const current = prev[id] || 0;
@@ -148,6 +128,16 @@ function App() {
           playsInline
           preload="auto"
         />
+
+        {/* Login / Sign Up buttons */}
+        <div className="auth-buttons">
+          <button className="login-btn" onClick={() => alert("Login clicked")}>
+            Login
+          </button>
+          <button className="signup-btn" onClick={() => alert("Sign Up clicked")}>
+            Sign Up
+          </button>
+        </div>
       </header>
 
       <div className="notification">⚠️ This app is under development</div>
@@ -181,7 +171,6 @@ function App() {
                   ) : (
                     <>
                       <img src={images[idx]} alt={p.name} />
-
                       {hasMultipleImages && (
                         <>
                           <span
@@ -190,9 +179,8 @@ function App() {
                           >
                             ‹
                           </span>
-
                           <span
-                            className={`arrow right ${idx === 2 ? "disabled" : ""}`}
+                            className={`arrow right ${idx === images.length - 1 ? "disabled" : ""}`}
                             onClick={() => nextImage(p.id, images.length)}
                           >
                             ›
@@ -296,6 +284,29 @@ function App() {
           )}
         </div>
       </div>
+
+
+
+     
+<div className="floating-actions">
+  <button className="action-btn">
+    <FaStore size={28} color="#FFD700" />   {/* Gold for Visit Store */}
+    <span className="tooltip-text">Visit Store</span>
+  </button>
+  <button className="action-btn">
+    <FaInstagram size={28} color="#E1306C" />   {/* Instagram pink gradient */}
+    <span className="tooltip-text">Instagram</span>
+  </button>
+  <button className="action-btn">
+    <FaWhatsapp size={28} color="#25D366" />   {/* WhatsApp green */}
+    <span className="tooltip-text">WhatsApp</span>
+  </button>
+  <button className="action-btn">
+    <FaVideo size={28} color="#FF4500" />   {/* Orange / red for Video Call */}
+    <span className="tooltip-text">Book Video Call</span>
+  </button>
+</div>
+
 
       <footer className="footer">
         © 2026 Dharmavaram SLB Silk Sarees
