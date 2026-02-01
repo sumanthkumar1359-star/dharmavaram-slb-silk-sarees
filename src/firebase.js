@@ -1,8 +1,11 @@
-// src/firebase.js
+
+
+
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
+// 🔹 Replace these with YOUR Firebase project values
 const firebaseConfig = {
   apiKey: "AIzaSyBJu4GVP0k6vtdgZ1q0SBYdeBl9zLLJH_s",
   authDomain: "slb-silk-saree-reviews.firebaseapp.com",
@@ -14,6 +17,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 

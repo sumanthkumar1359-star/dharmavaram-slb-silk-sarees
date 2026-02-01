@@ -5,7 +5,7 @@
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
-  background: #e8f2f6;
+  background: linear-gradient(90deg, #eef7fa, #e2ecf0, #f5f9fa);;
 }
 .intro-text {
   text-align: center;
@@ -40,11 +40,11 @@ body {
 
 /* HEADER */
 .header {
-  background: linear-gradient(135deg, #b0d4e3, #e6f7ff);
+  background: linear-gradient(135deg, #fffcfc, #ffffff);
   color: #003b5c;
   padding: 30px 20px;
   text-align: center;
-  border-bottom: 1px solid #d6eefb;
+  border-bottom: 1px solid #ffffff;
   width: 100%;
   height: 420px;          /* adjust as needed */
   display: flex;
@@ -68,17 +68,17 @@ body {
 /* FLOATING NOTIFICATION */
 .notification {
   position: fixed;
-  top: 15px;
-  left: -300px;
-  background: #a3d2e7;
+  top: 600px;
+  left: -200px;
+  background: #fbdcf5;
   color: black;
   font-weight: 600;
   padding: 10px 20px;
   border-radius: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  max-width: 320px;
+  box-shadow: 0 2px 8px rgba(217, 119, 119, 0.15);
+  max-width: 300px;
   white-space: nowrap;
-  animation: floatLeftRight 6s linear infinite;
+  animation: floatLeftRight 12s linear infinite;
   user-select: none;
   z-index: 9999;
 }
@@ -92,29 +92,27 @@ body {
 /* GRID */
 .product-container {
   max-width: 1800px;
-  margin: 100px auto 40px;
   padding: 25px 30px 40px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 28px;
+  gap: 20px;
 }
 
 /* CARD */
 .product-card {
-  background: #f5f6f6;
-  border-radius: 10px;
-  box-shadow: 0 18px 45px rgba(0, 56, 120, 0.12);
+  background: #ffffff;
+  box-shadow: 0 18px 45px rgb(235, 239, 244);
   display: flex;
   flex-direction: column;
   transition: 0.35s ease;
   position: relative;
-  padding-bottom: 5px; 
+  padding:5px; 
       /* prevents extra empty space */
 }
 
 .product-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 28px 60px rgba(0, 56, 120, 0.22);
+  box-shadow: 0 28px 60px rgb(47, 193, 212);
 }
 
 .image-wrapper {
@@ -126,7 +124,6 @@ body {
   width: 100%;
   height: 360px;             /* BIGGER image */
   object-fit: cover;
-  border-radius: 10px;
   background: #d9eaff;
 }
 
@@ -153,10 +150,10 @@ body {
 
 /* NAME */
 .name-box {
-  padding: 14px;
+  padding: 0px;
   text-align: center;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 11px;
   border-bottom: 1px solid #a9c9ff;
   color: black;
 }
@@ -164,9 +161,9 @@ body {
 /* PRICE */
 .price-box {
   text-align: center;
-  padding: 10px 0;
+  padding: 0px 0;
   font-size: 16px;
-  color: black;
+  color: rgb(240, 235, 235);
 }
 
 
@@ -185,12 +182,21 @@ body {
 .check-availability a {
   display: block;
   text-align: center;
-  padding: 10px 0;
+  padding: 10px;
   background: #0fec60; /* same as WhatsApp green */
   color: white;
   font-weight: 600;
   text-decoration: none;
-  border-radius: 10px;
+  margin: 6px 12px 10px;;
+}
+/* CHECK cart BUTTON */
+.add-to-cart-btn {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  background: #f1eb3a; /* same as WhatsApp green */
+  color: rgb(8, 8, 8);
+  font-weight: 600;
   margin: 6px 12px 10px;;
 }
 
@@ -251,7 +257,7 @@ body {
 .festival-banner {
   width: 100%;
   overflow: hidden; /* hides overflowing text */
-  background-color: #aff3ff; /* optional styling */
+  background: linear-gradient(90deg, #ff0022, #f2bebe, #fd0000); /* optional styling */
   padding: 10px 0;
   box-sizing: border-box;
   border: 1px solid #efeeee;
@@ -678,4 +684,108 @@ body {
     font-size: 14px;
   }
 }
+/* ===== PREMIUM TOP AUTH BAR ===== */
+.top-auth-bar {
+  width: 100%;
+  height: 50px; /* ~ half inch */
+  background: linear-gradient(90deg, #2d3132, #06b7f8, #2f3e43);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: 0 2px 10px rgb(206, 191, 191);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
 
+/* Left side */
+.top-left {
+  flex: 1;
+}
+
+/* Center logo name */
+.top-center {
+  flex: 2;
+  text-align: center;
+}
+
+.brand-name {
+  color: rgb(48, 48, 92);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+/* Right side welcome text */
+.top-right {
+  flex: 1;
+  text-align: right;
+}
+
+.welcome-text {
+  color: #332067cb;
+  font-weight: 500;
+}
+
+/* Buttons */
+.login-btn {
+  background: #1e90ff;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.logout-btn {
+  background: #ff4757;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+
+/* Push your existing content down so bar doesn't overlap */
+body {
+  margin-top: 50px;
+}
+
+
+.product-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .product-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.pagination button {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+}
+
+.pagination .active-page {
+  background: black;
+  color: white;
+}
