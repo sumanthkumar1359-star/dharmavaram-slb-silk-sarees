@@ -284,7 +284,7 @@ const prevPage = () => {
   {currentPage > 1 && (
     <>
       <button
-        className={currentPage === currentPage ? "active-page" : ""}
+        
         onClick={() => setCurrentPage(currentPage)}
       >
         {currentPage}
