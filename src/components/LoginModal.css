@@ -1,136 +1,146 @@
+/* ===== MOBILE / BROWSER FOCUS FIX (NO UI CHANGE) ===== */
+button,
+button:focus,
+button:active,
+input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* ===== LOGIN MODAL OVERLAY ===== */
 .login-modal-overlay {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  }
-  
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* ===== LOGIN MODAL ===== */
+.login-modal {
+  background: white;
+  width: 400px;
+  max-width: 90%;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ===== MOBILE ADJUSTMENT (NO DESIGN CHANGE) ===== */
+@media (max-width: 480px) {
   .login-modal {
-    background: white;
-    width: 400px;
-    max-width: 90%;
-    padding: 30px;
-    border-radius: 14px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    width: 95%;
+    padding: 20px;
   }
-  
-  .login-modal h3 {
-    text-align: center;
-    color: #0a3d62;
-    margin-bottom: 10px;
-  }
-  
-  .login-modal label {
-    font-size: 14px;
-    font-weight: 600;
-  }
-  
-  .login-modal input {
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-  }
-  
-  .primary-btn {
-    background: linear-gradient(90deg, #1e90ff, #00c6ff);
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .link-btn {
-    background: none;
-    border: none;
-    color: #1e90ff;
-    cursor: pointer;
-    text-align: left;
-    padding: 5px 0;
-  }
-  
-  .toggle-auth {
-    text-align: center;
-    font-size: 14px;
-  }
-  
-  .toggle-auth span {
-    color: #1e90ff;
-    cursor: pointer;
-    font-weight: 600;
-  }
-  
-  .cancel-btn {
-    background: #ff4757;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  
-  .success-msg {
-    color: green;
-    text-align: center;
-    font-weight: 600;
-  }
-  
-  .error-msg {
-    color: red;
-    text-align: center;
-    font-weight: 600;
-  }
-  
-  .password-note {
-    font-size: 12px;
-    color: #666;
-  }
-/* Ensure buttons/icons align nicely in top-right */
+}
+
+.login-modal h3 {
+  text-align: center;
+  color: #0a3d62;
+  margin-bottom: 10px;
+}
+
+.login-modal label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.login-modal input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* ===== BUTTONS ===== */
+.primary-btn {
+  background: linear-gradient(90deg, #1e90ff, #00c6ff);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: #1e90ff;
+  cursor: pointer;
+  text-align: left;
+  padding: 5px 0;
+}
+
+.toggle-auth {
+  text-align: center;
+  font-size: 14px;
+}
+
+.toggle-auth span {
+  color: #1e90ff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.cancel-btn {
+  background: #ff4757;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.success-msg {
+  color: green;
+  text-align: center;
+  font-weight: 600;
+}
+
+.error-msg {
+  color: red;
+  text-align: center;
+  font-weight: 600;
+}
+
+.password-note {
+  font-size: 12px;
+  color: #666;
+}
+
+/* ===== TOP RIGHT ALIGN FIX (SAFE) ===== */
 .top-right {
-    flex: 1;
-    text-align: right;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 12px; /* small gap between cart and login button */
+  flex: 1;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
 }
 
-/* Make login button smaller to fit beside cart */
+/* ===== LOGIN BUTTON ===== */
 .login-btn {
-    background: linear-gradient(135deg, #1e90ff, #00b4ff);
-    color: white;
-    border: none;
-    padding: 6px 12px; /* smaller padding to fit beside cart */
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: 600;
-    box-shadow: 0 3px 8px rgba(30,144,255,0.3);
-    transition: all 0.3s ease;
-    font-size: 14px;
+  background: linear-gradient(135deg, #1e90ff, #00b4ff);
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 3px 8px rgba(30,144,255,0.3);
+  font-size: 14px;
 }
 
-.login-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 5px 12px rgba(30,144,255,0.4);
-}
 /* ===== HAMBURGER ===== */
 .hamburger-wrapper {
-    font-size: 20px;
-    cursor: pointer;
-    padding: 8px 12px;
-    border-radius: 8px;
-
-    transition: all 0.3s ease;
-}
-
-.hamburger-wrapper:hover {
-
-    transform: translateY(-1px);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
 }

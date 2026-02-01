@@ -14,19 +14,18 @@ function HeaderBar({ user, onLoginClick, onCartClick }) {
         <div className="top-left">
           <div
             className="hamburger-wrapper"
-            onClick={() => setShowSideMenu(!showSideMenu)}
+            onClick={() => setShowSideMenu(true)}
           >
             &#9776;
           </div>
         </div>
 
         <div className="top-center">
-          <h2 className="brand-logo">Dharmavaram   </h2>
-            <h2 className="brand-logo">
-             SLB Silk Sarees</h2>
+          <h2 className="brand-logo">Dharmavaram</h2>
+          <h2 className="brand-logo">SLB Silk Sarees</h2>
         </div>
 
-        <div className="top-right ">
+        <div className="top-right">
           {!user ? (
             <button className="login-btn" onClick={onLoginClick}>
               Login / Sign Up
@@ -67,7 +66,23 @@ function HeaderBar({ user, onLoginClick, onCartClick }) {
         className={`side-menu ${showSideMenu ? "open" : ""}`}
         onClick={() => setShowSideMenu(false)}
       >
-        <div className="side-menu-content" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="side-menu-content"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* ✅ CLOSE ICON (NEW) */}
+          <div
+            style={{
+              textAlign: "right",
+              fontSize: "22px",
+              cursor: "pointer",
+              marginBottom: "10px",
+            }}
+            onClick={() => setShowSideMenu(false)}
+          >
+            ✖
+          </div>
+
           <h3 className="menu-section">Account</h3>
           {!user ? (
             <>

@@ -88,117 +88,164 @@ body {
   50% { left: 15px; }
   100% { left: -320px; }
 }
-
-/* GRID */
 .product-container {
   max-width: 1800px;
-  padding: 25px 30px 40px;
+  padding: 24px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  gap: 22px;
 }
 
-/* CARD */
+/* Tablet */
+@media (max-width: 1024px) {
+  .product-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Phone */
+@media (max-width: 600px) {
+  .product-container {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+}
 .product-card {
   background: #ffffff;
-  box-shadow: 0 18px 45px rgb(235, 239, 244);
+  border-radius: 18px;
+  padding: 8px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
   display: flex;
   flex-direction: column;
-  transition: 0.35s ease;
-  position: relative;
-  padding:5px; 
-      /* prevents extra empty space */
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .product-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 28px 60px rgb(47, 193, 212);
+  transform: translateY(-4px);
+  box-shadow: 0 18px 45px rgba(0,0,0,0.12);
 }
-
 .image-wrapper {
   position: relative;
-  padding: 8px;              /* reduced */
+  padding: 6px;
+  border-radius: 14px;
+  background: #f4f4f4; /* cement */
 }
 
 .image-wrapper img {
   width: 100%;
-  height: 360px;             /* BIGGER image */
+  height: 340px;
   object-fit: cover;
-  background: #d9eaff;
+  border-radius: 12px;
+  background: #ededed;
 }
 
-
-/* ARROWS */
+/* Phone image size */
+@media (max-width: 600px) {
+  .image-wrapper img {
+    height: 300px;
+  }
+}
 .arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 34px;
-  font-weight: bold;
-  color: #1e90ff;
+  font-size: 26px;
+  font-weight: 600;
+  color: #111;
   cursor: pointer;
   z-index: 5;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
 }
+
+.arrow:hover {
+  opacity: 1;
+}
+
 .arrow.disabled {
-  opacity: 0.3;
+  opacity: 0.25;
   pointer-events: none;
 }
 
-
-.arrow.left { left: 18px; }
-.arrow.right { right: 18px; }
-
-/* NAME */
+.arrow.left { left: 14px; }
+.arrow.right { right: 14px; }
 .name-box {
-  padding: 0px;
+  margin-top: 8px;
+  padding: 6px 8px;
   text-align: center;
-  font-weight: 600;
-  font-size: 11px;
-  border-bottom: 1px solid #a9c9ff;
-  color: black;
-}
 
-/* PRICE */
+  font-size: 13px;
+  font-weight: 500;
+  color: #111;
+
+  border-bottom: 1px solid #e5e5e5;
+}
 .price-box {
   text-align: center;
-  padding: 0px 0;
-  font-size: 16px;
-  color: rgb(240, 235, 235);
+  padding: 6px 0 10px;
+  font-size: 15px;
+  color: #111;
 }
 
-
 .original-price {
-  color: #7a9edc;
+  color: #999;
   text-decoration: line-through;
-  margin-right: 8px;
+  margin-right: 6px;
+  font-size: 14px;
 }
 
 .price {
-  font-weight: 700;
-  color: red;
+  font-weight: 600;
+  color: #000;
 }
 
-/* CHECK AVAILABILITY BUTTON */
+/* CHECK AVAILABILITY – Premium */
 .check-availability a {
   display: block;
   text-align: center;
-  padding: 10px;
-  background: #0fec60; /* same as WhatsApp green */
-  color: white;
-  font-weight: 600;
+  padding: 12px;
+  margin: 8px 12px;
+
+  background: #f2f2f2;          /* cement white */
+  color: #111;                  /* near black */
+  font-weight: 500;
+
+  border-radius: 12px;
+  border: 1px solid #d6d6d6;    /* soft border */
   text-decoration: none;
-  margin: 6px 12px 10px;;
+
+  transition: background 0.2s ease, transform 0.15s ease;
 }
-/* CHECK cart BUTTON */
+
+.check-availability a:hover {
+  background: #e8e8e8;
+  transform: translateY(-1px);
+}
+/* ADD TO CART – Premium */
 .add-to-cart-btn {
   display: block;
   text-align: center;
-  padding: 10px;
-  background: #f1eb3a; /* same as WhatsApp green */
-  color: rgb(8, 8, 8);
+  padding: 12px;
+  margin: 8px 12px;
+
+  background: #e0e0e0;        /* cement grey */
+  color: #000;
   font-weight: 600;
-  margin: 6px 12px 10px;;
+
+  border-radius: 12px;
+  border: 1px solid #cfcfcf;
+
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
 }
+
+.add-to-cart-btn:hover {
+  background: #d5d5d5;
+  transform: translateY(-1px);
+}
+
 
 /* PAGINATION */
 .pagination-wrapper { display: flex; justify-content: center; margin: 30px 0 60px; }
@@ -788,4 +835,127 @@ body {
 .pagination .active-page {
   background: black;
   color: white;
+}
+/* =========================
+   PREMIUM iOS OVERRIDE LAYER
+   (Non-breaking)
+========================= */
+
+/* Global smoothing */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Neutral premium background */
+body {
+  background: #f5f5f5 !important; /* cement */
+}
+
+/* Remove harsh gradients softly */
+.header,
+.top-auth-bar {
+  background: #ffffff !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+/* Text tone normalization */
+.intro-text h2,
+.review-section h2,
+.brand-name {
+  background: none !important;
+  color: #111 !important;
+  -webkit-text-fill-color: initial !important;
+}
+
+/* Buttons – Apple style */
+button,
+.add-to-cart-btn,
+.check-availability a,
+.login-btn,
+.signup-btn,
+.page-btn {
+  background: #f2f2f2 !important;
+  color: #111 !important;
+  border: 1px solid #d6d6d6 !important;
+  box-shadow: none !important;
+}
+
+/* Button hover */
+button:hover,
+.add-to-cart-btn:hover,
+.check-availability a:hover,
+.login-btn:hover,
+.signup-btn:hover {
+  background: #e8e8e8 !important;
+}
+
+/* Product cards refinement */
+.product-card {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08) !important;
+}
+
+/* Remove neon hover glow */
+.product-card:hover {
+  box-shadow: 0 14px 36px rgba(0,0,0,0.12) !important;
+}
+
+/* Arrows subtle */
+.arrow {
+  color: #111 !important;
+  opacity: 0.4;
+}
+
+/* Pagination – clean dots */
+.pagination,
+.pagination-wrapper {
+  box-shadow: none !important;
+}
+
+.page-btn.active,
+.pagination .active-page {
+  background: #111 !important;
+  color: #fff !important;
+}
+
+/* Floating buttons – glass */
+.action-btn {
+  background: rgba(255,255,255,0.7) !important;
+  border: 1px solid rgba(0,0,0,0.08);
+  backdrop-filter: blur(10px);
+}
+
+/* Footer premium */
+.footer {
+  background: #ffffff !important;
+  color: #111 !important;
+  border-top: 1px solid #e5e5e5;
+}
+
+/* Festival banner calm */
+.festival-banner {
+  background: #111 !important;
+  color: #fff;
+}
+
+/* Reviews neutral */
+.review-section,
+.modal {
+  background: #ffffff !important;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+/* Mobile spacing polish */
+@media (max-width: 600px) {
+  .product-card {
+    border-radius: 16px;
+  }
+
+  .image-wrapper img {
+    border-radius: 14px;
+  }
+
+  button {
+    font-size: 15px;
+  }
 }
