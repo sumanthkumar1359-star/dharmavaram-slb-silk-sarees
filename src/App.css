@@ -780,8 +780,8 @@ body {
 
 
 /* Push your existing content down so bar doesn't overlap */
-body {
-  margin-top: 50px;
+.app {
+  padding-top: 60px;
 }
 
 

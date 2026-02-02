@@ -256,6 +256,7 @@ button:hover {
 
 @keyframes sparkle {
   0% { transform: translateY(0); }
+  
   100% { transform: translateY(-4px); }
 }
 
@@ -273,7 +274,7 @@ button:hover {
 /* ===== MOBILE ===== */
 @media (max-width: 768px) {
   .app {
-    padding-top: 60px;
+    padding-top: 56px;
   }
 
   .welcome-text {
