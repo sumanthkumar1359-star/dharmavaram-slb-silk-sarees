@@ -326,4 +326,95 @@ button:hover {
     border-radius: 50%;
     padding: 2px 6px;
   }
+  /* ================= MOBILE FIXES (REAL PHONE SUPPORT) ================= */
+
+/* Prevent horizontal scroll on phones */
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent; /* removes black tap border */
+  }
+  
+  /* Better touch experience */
+  * {
+    touch-action: manipulation;
+  }
+  
+  /* Fix fixed header overlap on mobile */
+  @media (max-width: 768px) {
+    .app {
+      padding-top: 72px; /* header height + safe spacing */
+    }
+  }
+  
+  /* iOS safe-area (notch phones like iPhone) */
+  .top-auth-bar {
+    padding-top: env(safe-area-inset-top);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+  
+  /* Remove hover effects on touch devices */
+  @media (hover: none) {
+    .icon-wrapper:hover,
+    .side-menu-content p:hover,
+    .user-dropdown p:hover {
+      background: none;
+    }
+  }
+  
+  /* Increase tap area for icons */
+  .icon-wrapper,
+  .hamburger-wrapper,
+  .login-btn,
+  .logout-btn {
+    min-height: 44px; /* Apple recommended touch size */
+  }
+  
+  /* Fix dropdown going out of screen */
+  .user-dropdown {
+    max-width: 90vw;
+    right: 8px;
+  }
+  
+  /* Side menu full height on mobile */
+  .side-menu {
+    height: 100dvh; /* dynamic viewport height (mobile safe) */
+  }
+  
+  /* Festival banner stacking fix */
+  .festival-banner {
+    font-size: 14px;
+    padding: 10px 6px;
+  }
+  
+  /* Product card spacing on mobile */
+  .product-card {
+    margin: 12px 8px;
+  }
+  
+  /* Premium text responsive */
+  @media (max-width: 480px) {
+    .premium-text {
+      font-size: 1.6rem;
+    }
+  
+    .premium-subtext {
+      font-size: 0.95rem;
+    }
+  }
+  
+  /* Cart badge alignment on small screens */
+  .cart-badge {
+    top: -6px;
+    right: -8px;
+  }
+  
+  /* Prevent buttons zooming on iOS */
+  button,
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
   
