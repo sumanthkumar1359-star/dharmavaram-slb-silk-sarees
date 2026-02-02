@@ -343,7 +343,7 @@ html, body {
   /* Fix fixed header overlap on mobile */
   @media (max-width: 768px) {
     .app {
-      padding-top: 72px; /* header height + safe spacing */
+      padding-top: 60px; /* header height + safe spacing */
     }
   }
   
@@ -368,7 +368,7 @@ html, body {
   .hamburger-wrapper,
   .login-btn,
   .logout-btn {
-    min-height: 44px; /* Apple recommended touch size */
+    min-height: 35px; /* Apple recommended touch size */
   }
   
   /* Fix dropdown going out of screen */
@@ -385,7 +385,7 @@ html, body {
   /* Festival banner stacking fix */
   .festival-banner {
     font-size: 14px;
-    padding: 10px 6px;
+    padding: 13px 6px;
   }
   
   /* Product card spacing on mobile */
