@@ -28,7 +28,7 @@ function HeaderBar({ user, onLoginClick, onCartClick }) {
         <div className="top-right">
           {!user ? (
             <button className="login-btn" onClick={onLoginClick}>
-              Login / Sign Up
+              Login
             </button>
           ) : (
             <button className="logout-btn" onClick={() => auth.signOut()}>
@@ -61,16 +61,27 @@ function HeaderBar({ user, onLoginClick, onCartClick }) {
         </div>
       </div>
 
+
+      {/* Festival Banner */}
+      <div className="festival-banner">
+        ✨ Celebrate the Festival Season with Exclusive Offers! ✨
+      </div>
+
+      {/* Horizontal line below header */}
+      <hr className="header-divider" />
+
+      <div class="premium-collection">
+  <h1 class="premium-text">Best Collections</h1>
+  <p class="premium-subtext">Handpicked sarees for every occasion</p>
+</div>
+
+
       {/* Side Sliding Menu */}
       <div
         className={`side-menu ${showSideMenu ? "open" : ""}`}
         onClick={() => setShowSideMenu(false)}
       >
-        <div
-          className="side-menu-content"
-          onClick={(e) => e.stopPropagation()}
-        >
-          {/* ✅ CLOSE ICON (NEW) */}
+        <div className="side-menu-content" onClick={(e) => e.stopPropagation()}>
           <div
             style={{
               textAlign: "right",

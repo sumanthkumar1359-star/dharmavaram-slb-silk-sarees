@@ -13,7 +13,7 @@ import CartModal from "./components/CartModal";
 const getImages = (folder) => {
   const images = [];
   for (let i = 1; i <= 10; i++) {
-    images.push(`/products/${folder}/${i}.jpg`);
+    images.push(`/products/${folder}/${i}.jpeg`);
   }
   return images;
 };
@@ -201,13 +201,10 @@ const prevPage = () => {
         />
       )}
 
-      <div className="notification">⚠️ This app is under development</div>
 
-      <div className="festival-banner">
-        <div className="scrolling-text">
-          Wedding Season Collection | Bride’s Special Dharmavaram Silks | Auspicious Festival Offers
-        </div>
-      </div>
+
+      <div className="notification">⚠️ This app is under development</div>
+ 
 
       {/* PRODUCTS */}
       <section className="product-section">
@@ -386,24 +383,47 @@ const prevPage = () => {
       </div>
 
       {/* FLOATING ACTIONS */}
-      <div className="floating-actions">
-        <button className="action-btn">
-          <FaStore size={28} color="#FFD700" />
-          <span className="tooltip-text">Visit Store</span>
-        </button>
-        <button className="action-btn">
-          <FaInstagram size={28} color="#E1306C" />
-          <span className="tooltip-text">Instagram</span>
-        </button>
-        <button className="action-btn">
-          <FaWhatsapp size={28} color="#25D366" />
-          <span className="tooltip-text">WhatsApp</span>
-        </button>
-        <button className="action-btn">
-          <FaVideo size={28} color="#FF4500" />
-          <span className="tooltip-text">Book Video Call</span>
-        </button>
-      </div>
+<div className="floating-actions">
+  <a
+    href="https://maps.app.goo.gl/rq34NFwRW6Kas6sH7?g_st=aw"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="action-btn"
+  >
+    <FaStore size={20} color="#FFD700" />
+    <span className="tooltip-text">Visit Store</span>
+  </a>
+
+  <a
+    href="https://www.instagram.com/dharmavaram_slb_silk_sarees?utm_source=qr&igsh=MWcydGt3cXlqaG05dg=="
+    target="_blank"
+    rel="noopener noreferrer"
+    className="action-btn"
+  >
+    <FaInstagram size={20} color="#E1306C" />
+    <span className="tooltip-text">Instagram</span>
+  </a>
+
+  <a
+    href="https://wa.me/+918309323239"  // WhatsApp link format
+    target="_blank"
+    rel="noopener noreferrer"
+    className="action-btn"
+  >
+    <FaWhatsapp size={20} color="#25D366" />
+    <span className="tooltip-text">WhatsApp</span>
+  </a>
+
+  <a
+    href="https://www.instagram.com/dharmavaram_slb_silk_sarees?utm_source=qr&igsh=MWcydGt3cXlqaG05dg=="
+    target="_blank"
+    rel="noopener noreferrer"
+    className="action-btn"
+  >
+    <FaVideo size={20} color="#FF4500" />
+    <span className="tooltip-text">Book Video Call</span>
+  </a>
+</div>
 
       <footer className="footer">
         © 2026 Dharmavaram SLB Silk Sarees

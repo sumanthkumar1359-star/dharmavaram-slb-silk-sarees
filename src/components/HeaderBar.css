@@ -15,6 +15,13 @@ button:hover {
   box-shadow: none;
 }
 
+
+
+/* ===== APP GAP (HEADER → BODY ≈ 2 INCH) ===== */
+.app {
+  padding-top: 60px;
+}
+
 /* ===== TOP BAR ===== */
 .top-auth-bar {
   width: 100%;
@@ -62,7 +69,7 @@ button:hover {
   background: rgba(0, 0, 0, 0.08);
   padding: 8px 12px;
   border-radius: 10px;
-  transition: all 0.25s ease;
+  transition: background 0.25s ease;
 }
 
 .icon-wrapper:hover {
@@ -96,7 +103,7 @@ button:hover {
   position: absolute;
   top: 42px;
   right: 0;
-  background: white;
+  background: #ffffff;
   border-radius: 10px;
   width: 160px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
@@ -125,12 +132,12 @@ button:hover {
 
 .login-btn {
   background: linear-gradient(135deg, #1e90ff, #00b4ff);
-  color: white;
+  color: #ffffff;
 }
 
 .logout-btn {
   background: linear-gradient(135deg, #ff4757, #ff6b81);
-  color: white;
+  color: #ffffff;
 }
 
 /* ===== SIDE MENU ===== */
@@ -140,7 +147,7 @@ button:hover {
   left: -260px;
   width: 260px;
   height: 100%;
-  background: #fff;
+  background: #ffffff;
   box-shadow: 3px 0 15px rgba(0, 0, 0, 0.2);
   transition: left 0.3s ease;
   z-index: 1500;
@@ -176,15 +183,98 @@ button:hover {
 }
 
 .profile-modal {
-  background: white;
+  background: #ffffff;
   padding: 24px;
   border-radius: 12px;
   width: 90%;
   max-width: 320px;
 }
 
+/* ===== PRODUCT CARD ===== */
+.product-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.12);
+}
+
+/* ===== CHECK AVAILABILITY (NO UNDERLINE) ===== */
+.check-availability a {
+  text-decoration: none;
+
+  font-weight: 500;
+}
+
+/* ===== ARROWS ===== */
+.arrow {
+  color: #111;
+  opacity: 0.4;
+}
+
+/* ===== FLOATING BUTTONS ===== */
+.action-btn {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  background: #ffffff;
+  color: #111;
+  border-top: 1px solid #e5e5e5;
+}
+
+/* ===== FESTIVAL BANNER ===== */
+.festival-banner {
+  width: 100%;
+  background: linear-gradient(135deg, #b0beff, #fad0c4);
+  color: #0b0404;
+  text-align: center;
+  padding: 14px 0;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-top: 0; /* removed gap below header */
+  position: relative;
+  z-index: 999;
+}
+
+/* Optional: sparkle animation */
+.festival-banner::before {
+  content: "✨";
+  position: absolute;
+  left: 10px;
+  animation: sparkle 2s infinite alternate;
+}
+
+@keyframes sparkle {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-4px); }
+}
+
+/* Horizontal divider below header */
+.header-divider {
+  margin: 0;
+  border: none;
+  height: 1px;
+  background: #ddd;
+}
+
+/* Removed spacer for fixed header */
+/* .header-spacer { height: 96px; width: 100%; } */
+
 /* ===== MOBILE ===== */
 @media (max-width: 768px) {
+  .app {
+    padding-top: 120px;
+  }
+
   .welcome-text {
     display: none;
   }
@@ -193,7 +283,45 @@ button:hover {
     font-size: 16px;
   }
 
-  .top-auth-bar {
-    padding: 0 10px;
+  button {
+    font-size: 15px;
   }
 }
+/* Premium Text Styling - Minimal Black */
+.premium-text {
+    font-family: 'Cinzel', serif; /* Elegant serif font */
+    font-weight: 700;
+    font-size: 2.5rem; /* adjust size as needed */
+    color: #000; /* Black */
+    text-align: center; /* Centered */
+    text-transform: uppercase; /* Optional for a premium look */
+    letter-spacing: 1px; /* Slight spacing, not too much */
+    margin: 0; /* Remove extra gaps */
+    line-height: 1.2; /* Tighter lines */
+  }
+  
+  /* Optional tagline below the premium text */
+  .premium-subtext {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    color: #333; /* Dark grey for subtle contrast */
+    text-align: center;
+    margin-top: 4px; /* Small gap below main text */
+  }
+  .cart-icon {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 2px 6px;
+  }
+  

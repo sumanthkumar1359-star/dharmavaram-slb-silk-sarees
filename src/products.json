@@ -91,144 +91,54 @@
             "originalPrice": 3500
           },
           {
-              "id": 13,
-              "folder": "saree-13",
+              "id": 14,
+              "folder": "saree-14",
               "name": "Traditional Wedding Silk Saree",
               "price": 2500,
               "originalPrice": 3500
             },
             {
-                "id": 13,
-                "folder": "saree-13",
+                "id": 15,
+                "folder": "saree-15",
                 "name": "Traditional Wedding Silk Saree",
                 "price": 2500,
                 "originalPrice": 3500
               },
               {
-                  "id": 13,
-                  "folder": "saree-13",
+                  "id": 16,
+                  "folder": "saree-16",
                   "name": "Traditional Wedding Silk Saree",
                   "price": 2500,
                   "originalPrice": 3500
                 },
                 {
-                    "id": 13,
-                    "folder": "saree-13",
+                    "id": 17,
+                    "folder": "saree-17",
                     "name": "Traditional Wedding Silk Saree",
                     "price": 2500,
                     "originalPrice": 3500
                   },
                   {
-                      "id": 13,
-                      "folder": "saree-13",
-                      "name": "Traditional Wedding Silk Saree",
-                      "price": 2500,
-                      "originalPrice": 3500
-                    },
-                    {
-                        "id": 13,
-                        "folder": "saree-13",
-                        "name": "Traditional Wedding Silk Saree",
-                        "price": 2500,
-                        "originalPrice": 3500
-                      },
-                      {
-                          "id": 13,
-                          "folder": "saree-13",
-                          "name": "Traditional Wedding Silk Saree",
-                          "price": 2500,
-                          "originalPrice": 3500
-                        },
-                        {
-                            "id": 13,
-                            "folder": "saree-13",
-                            "name": "Traditional Wedding Silk Saree",
-                            "price": 2500,
-                            "originalPrice": 3500
-                          },
-                          {
-                              "id": 13,
-                              "folder": "saree-13",
-                              "name": "Traditional Wedding Silk Saree",
-                              "price": 2500,
-                              "originalPrice": 3500
-                            },
-                            {
-                                "id": 13,
-                                "folder": "saree-13",
-                                "name": "Traditional Wedding Silk Saree",
-                                "price": 2500,
-                                "originalPrice": 3500
-                              },
-                              {
-                                  "id": 13,
-                                  "folder": "saree-13",
-                                  "name": "Traditional Wedding Silk Saree",
-                                  "price": 2500,
-                                  "originalPrice": 3500
-                                },
-                                {
-                                    "id": 13,
-                                    "folder": "saree-13",
-                                    "name": "Traditional Wedding Silk Saree",
-                                    "price": 2500,
-                                    "originalPrice": 3500
-                                  },
-                                  {
-                                      "id": 13,
-                                      "folder": "saree-13",
-                                      "name": "Traditional Wedding Silk Saree",
-                                      "price": 2500,
-                                      "originalPrice": 3500
-                                    },
-                                    {
-                                        "id": 13,
-                                        "folder": "saree-13",
-                                        "name": "Traditional Wedding Silk Saree",
-                                        "price": 2500,
-                                        "originalPrice": 3500
-                                      },
-                                      {
-                                          "id": 13,
-                                          "folder": "saree-13",
-                                          "name": "Traditional Wedding Silk Saree",
-                                          "price": 2500,
-                                          "originalPrice": 3500
-                                        },
-                                        {
-                                            "id": 13,
-                                            "folder": "saree-13",
-                                            "name": "Traditional Wedding Silk Saree",
-                                            "price": 2500,
-                                            "originalPrice": 3500
-                                          },
-                                          {
-                                              "id": 13,
-                                              "folder": "saree-13",
-                                              "name": "Traditional Wedding Silk Saree",
-                                              "price": 2500,
-                                              "originalPrice": 3500
-                                            },
-                                            {
-                                                "id": 13,
-                                                "folder": "saree-13",
-                                                "name": "Traditional Wedding Silk Saree",
-                                                "price": 2500,
-                                                "originalPrice": 3500
-                                              },
-                                              {
-                                                  "id": 13,
-                                                  "folder": "saree-13",
-                                                  "name": "Traditional Wedding Silk Saree",
-                                                  "price": 2500,
-                                                  "originalPrice": 3500
-                                                },
-                                                {
-                                                    "id": 13,
-                                                    "folder": "saree-13",
-                                                    "name": "Traditional Wedding Silk Saree",
-                                                    "price": 2500,
-                                                    "originalPrice": 3500
-                                                  }
+                    "id": 18,
+                    "folder": "saree-18",
+                    "name": "Traditional Wedding Silk Saree",
+                    "price": 2500,
+                    "originalPrice": 3500
+                  },
+                  {
+                    "id": 19,
+                    "folder": "saree-19",
+                    "name": "Traditional Wedding Silk Saree",
+                    "price": 2500,
+                    "originalPrice": 3500
+                  },
+                  {
+                    "id": 20,
+                    "folder": "saree-20",
+                    "name": "Traditional Wedding Silk Saree",
+                    "price": 2500,
+                    "originalPrice": 3500
+                  }   
+
   ]
   
