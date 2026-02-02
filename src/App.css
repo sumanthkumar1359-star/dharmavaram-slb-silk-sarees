@@ -1126,17 +1126,35 @@ body {
 
 .helpful-actions button:hover {
   background: #e0e0ff;
-}
-.trust-badges {
-  display: flex;
-  justify-content: center; /* Center horizontally */
-  gap: 150px;               /* Slightly smaller gap */
-  font-size: 20px;         /* Smaller text */
-  color: #333333;
-  margin-top: 0px;
-  padding-top: 20px;
-}
-
+  .trust-badges {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;          /* default for desktop */
+    font-size: 20px;
+    color: #333333;
+    margin-top: 0;
+    padding-top: 20px;
+    flex-wrap: wrap;   /* prevents overflow on small screens */
+  }
+  
+  /* ===== MOBILE ===== */
+  @media (max-width: 768px) {
+    .trust-badges {
+      gap: 16px;        /* phone-friendly spacing */
+      font-size: 16px;  /* better readability */
+      padding-top: 12px;
+    }
+  }
+  
+  /* ===== SMALL PHONES ===== */
+  @media (max-width: 480px) {
+    .trust-badges {
+      gap: 12px;
+      font-size: 14px;
+    }
+  }
+  
 .trust-badges span {
   display: flex;
   align-items: center;
