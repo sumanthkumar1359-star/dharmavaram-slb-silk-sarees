@@ -18,6 +18,7 @@ const getImages = (folder) => {
   return images;
 };
 
+
 function App() {
   const [user, setUser] = useState(null);
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -43,6 +44,43 @@ const totalPages = Math.ceil(products.length / productsPerPage);
 const indexOfLastProduct = currentPage * productsPerPage;
 const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
 const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+// FULLSCREEN IMAGE VIEW
+const [preview, setPreview] = useState({
+  open: false,
+  images: [],
+  index: 0,
+});
+const openPreview = (images, index) => {
+  setPreview({
+    open: true,
+    images,
+    index,
+  });
+};
+
+const closePreview = () => {
+  setPreview({
+    open: false,
+    images: [],
+    index: 0,
+  });
+};
+
+const prevPreviewImage = () => {
+  setPreview((p) => ({
+    ...p,
+    index: Math.max(p.index - 1, 0),
+  }));
+};
+
+const nextPreviewImage = () => {
+  setPreview((p) => ({
+    ...p,
+    index: Math.min(p.index + 1, p.images.length - 1),
+  }));
+};
+
+
 
 const nextPage = () => {
   if (currentPage < totalPages) {
@@ -216,7 +254,13 @@ const prevPage = () => {
             return (
               <div className="product-card" key={p.id}>
                 <div className="image-wrapper">
-                  <img src={images[idx]} alt={p.name} />
+                <img
+  src={images[idx]}
+  alt={p.name}
+  onClick={() => openPreview(images, idx)}
+  className="clickable-image"
+/>
+
 
                   <span
                     className={`arrow left ${idx === 0 ? "disabled" : ""}`}
@@ -260,6 +304,35 @@ const prevPage = () => {
             );
           })}
         </div>
+        {preview.open && (
+  <div className="image-preview-overlay">
+    <span className="close-btn" onClick={closePreview}>✕</span>
+
+    <span
+      className={`preview-arrow left ${
+        preview.index === 0 ? "disabled" : ""
+      }`}
+      onClick={prevPreviewImage}
+    >
+      ‹
+    </span>
+
+    <img
+      src={preview.images[preview.index]}
+      alt="Preview"
+      className="preview-image"
+    />
+
+    <span
+      className={`preview-arrow right ${
+        preview.index === preview.images.length - 1 ? "disabled" : ""
+      }`}
+      onClick={nextPreviewImage}
+    >
+      ›
+    </span>
+  </div>
+)}
 
         {/* PAGINATION UI */}
         <div className="pagination">
