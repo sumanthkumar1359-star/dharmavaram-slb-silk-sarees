@@ -20,6 +20,7 @@ const getImages = (folder) => {
 
 
 function App() {
+  
   const [user, setUser] = useState(null);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
@@ -37,13 +38,92 @@ function App() {
   const [showCart, setShowCart] = useState(false);
 
   // ======== PAGINATION STATE (NEW) ========
-  const productsPerPage = 9;
+  const productsPerPage = 12;
 const [currentPage, setCurrentPage] = useState(1);
 const totalPages = Math.ceil(products.length / productsPerPage);
 
 const indexOfLastProduct = currentPage * productsPerPage;
 const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
 const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+const [helpfulCounts, setHelpfulCounts] = useState({});
+const handleHelpfulClick = (id) => {
+  setHelpfulCounts((prev) => ({
+    ...prev,
+    [id]: {
+      helpful: prev[id]?.helpful + 1 || 1,
+      notHelpful: prev[id]?.notHelpful || 0
+    },
+  }));
+};
+
+const handleNotHelpfulClick = (id) => {
+  setHelpfulCounts((prev) => ({
+    ...prev,
+    [id]: {
+      helpful: prev[id]?.helpful || 0,
+      notHelpful: prev[id]?.notHelpful + 1 || 1
+    },
+  }));
+};
+useEffect(() => {
+  const fetchReviews = async () => {
+    try {
+      const q = query(collection(db, "reviews"), orderBy("createdAt", "desc"));
+      const snapshot = await getDocs(q);
+      const data = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+        helpful: doc.data().helpful || 0,
+        notHelpful: doc.data().notHelpful || 0
+      }));
+      setReviews(data);
+    } catch (error) {
+      console.error("Error fetching reviews:", error);
+    }
+  };
+  fetchReviews();
+}, []);
+
+
+// ================= REVIEW CALCULATIONS =================
+const totalReviews = reviews.length;
+// ===== REVIEW FILTER =====
+const [selectedStar, setSelectedStar] = useState(null); 
+// null = all reviews
+const filteredReviews = selectedStar
+  ? reviews.filter((r) => r.rating === selectedStar)
+  : reviews;
+
+const reviewsToShow = showAllReviews
+  ? filteredReviews
+  : filteredReviews.slice(0, 3);
+
+
+const averageRating =
+  totalReviews === 0
+    ? 0
+    : (
+        reviews.reduce((sum, r) => sum + r.rating, 0) / totalReviews
+      ).toFixed(1);
+
+const ratingCount = [5, 4, 3, 2, 1].map(
+  (star) => reviews.filter((r) => r.rating === star).length
+);
+const formatDateTime = (timestamp) => {
+  if (!timestamp) return "";
+
+  const date = timestamp.toDate(); // Firestore Timestamp → JS Date
+
+  return date.toLocaleString("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+};
+
 // FULLSCREEN IMAGE VIEW
 const [preview, setPreview] = useState({
   open: false,
@@ -206,7 +286,7 @@ const prevPage = () => {
     });
   };
 
-  const reviewsToShow = showAllReviews ? reviews : reviews.slice(0, 3);
+
 
   return (
     <div className="app">
@@ -239,13 +319,10 @@ const prevPage = () => {
         />
       )}
 
-
-
-      <div className="notification">⚠️ This app is under development</div>
  
 
       {/* PRODUCTS */}
-      <section className="product-section">
+      <section className="product-section" id="products">
         <div className="product-container">
           {currentProducts.map((p) => {
             const images = getImages(p.folder);
@@ -382,78 +459,203 @@ const prevPage = () => {
 
       </section>
 
-      {/* REVIEWS */}
-      <div className="review-section">
-        <h2>Customer Reviews</h2>
-        <button className="add-review-btn" onClick={() => setShowModal(true)}>
-          Add Your Review
-        </button>
+     {/* ================= REVIEWS ================= */}
+<div className="review-section">
 
-        {showModal && (
-          <div className="modal-overlay">
-            <div className="modal">
-              <h3>Submit Your Review</h3>
-              <form onSubmit={handleSubmitReview}>
-                <input
-                  type="text"
-                  placeholder="Your Name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                />
-                <textarea
-                  placeholder="Your Review"
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                  required
-                />
-                <div className="star-rating">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <span
-                      key={star}
-                      className={star <= rating ? "filled" : ""}
-                      onClick={() => setRating(star)}
-                    >
-                      ★
-                    </span>
-                  ))}
-                </div>
-                <div className="modal-buttons">
-                  <button type="submit">Submit</button>
-                  <button type="button" onClick={() => setShowModal(false)}>
-                    Cancel
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
+<h2>Customer Reviews</h2>
 
-        <div className="review-list">
-          {reviewsToShow.map((r) => (
-            <div key={r.id} className="review-card">
-              <div className="review-header">
-                <strong>{r.name}</strong>
-                <span className="stars">
-                  {"★".repeat(r.rating) + "☆".repeat(5 - r.rating)}
-                </span>
-              </div>
-              <p>{r.comment}</p>
-            </div>
-          ))}
+{/* HEADER BAR */}
+<div className="review-header-bar">
 
-          {reviews.length > 3 && (
-            <button
-              className="view-all-btn"
-              onClick={() => setShowAllReviews((p) => !p)}
-            >
-              {showAllReviews
-                ? "Show Less"
-                : `View All Reviews (${reviews.length})`}
-            </button>
-          )}
+  <div className="trusted-review">
+    ✔ Trusted Reviews
+  </div>
+
+  <button
+    className="add-review-btn"
+    onClick={() => setShowModal(true)}
+  >
+    Add Your Review
+  </button>
+
+  <div className="total-reviews">
+    {totalReviews} Reviews
+  </div>
+
+</div>
+
+{/* RATING SUMMARY */}
+<div className="rating-summary">
+
+  <div className="avg-rating">
+    <div className="avg-score">{averageRating}</div>
+    <div className="avg-stars">
+      {"★".repeat(Math.round(averageRating))}
+      {"☆".repeat(5 - Math.round(averageRating))}
+    </div>
+    <div className="out-of">out of 5</div>
+  </div>
+
+  <div className="rating-bars">
+    {[5, 4, 3, 2, 1].map((star, index) => (
+      <div
+      className={`rating-row clickable ${
+        selectedStar === star ? "active" : ""
+      }`}
+      onClick={() => setSelectedStar(star)}
+    >
+    
+        <span>{star}★</span>
+
+        <div className="bar">
+          <div
+            className="fill"
+            style={{
+              width:
+                totalReviews === 0
+                  ? "0%"
+                  : `${(ratingCount[index] / totalReviews) * 100}%`,
+            }}
+          />
         </div>
+
+        <span className="count">{ratingCount[index]}</span>
       </div>
+    ))}
+  </div>
+
+</div>
+
+{selectedStar && (
+  <div className="clear-filter">
+    Showing {selectedStar}★ reviews
+    <button onClick={() => setSelectedStar(null)}>
+      Clear Filter
+    </button>
+  </div>
+)}
+
+{/* REVIEW LIST */}
+<div className="review-list">
+
+  {reviewsToShow.map((r) => (
+    <div key={r.id} className="review-card">
+
+<div className="review-header">
+  <div>
+    <strong>{r.name}</strong>
+    <div className="review-date">
+      {formatDateTime(r.createdAt)}
+    </div>
+  </div>
+
+  <span className="stars">
+    {"★".repeat(r.rating) + "☆".repeat(5 - r.rating)}
+  </span>
+</div>
+
+
+      <div className="verified-badge">
+        ✔ Verified Purchase
+      </div>
+
+      <p>{r.comment}</p>
+      <div className="customer-media">
+  <h4>Customer Photos & Videos</h4>
+  <div className="media-gallery">
+    {reviews
+      .filter(r => r.media && r.media.length > 0) // Only reviews with media
+      .map((r, idx) =>
+        r.media.map((file, i) => (
+          <div key={idx + "-" + i} className="media-item">
+            {file.type === "image" ? (
+              <img src={file.url} alt="Customer upload" />
+            ) : (
+              <video controls>
+                <source src={file.url} type="video/mp4" />
+              </video>
+            )}
+          </div>
+        ))
+      )}
+  </div>
+</div>
+
+
+      <div className="helpful-actions">
+  <button onClick={() => handleHelpfulClick(r.id)}>
+    👍 Helpful {helpfulCounts[r.id]?.helpful || 0}
+  </button>
+  <button onClick={() => handleNotHelpfulClick(r.id)}>
+    👎 Not Helpful {helpfulCounts[r.id]?.notHelpful || 0}
+  </button>
+</div>
+
+
+    </div>
+  ))}
+
+  {reviews.length > 3 && (
+    <button
+      className="view-all-btn"
+      onClick={() => setShowAllReviews((p) => !p)}
+    >
+      {showAllReviews
+        ? "Show Less"
+        : `View All Reviews (${reviews.length})`}
+    </button>
+  )}
+
+</div>
+
+</div>
+{/* ADD REVIEW MODAL */}
+{showModal && (
+  <div className="modal-overlay">
+    <div className="modal">
+
+      <h3>Add Your Review</h3>
+
+      <form onSubmit={handleSubmitReview}>
+        <input
+          type="text"
+          placeholder="Your Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+
+        <textarea
+          placeholder="Your Review"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+          required
+        />
+
+        <div className="star-rating">
+          {[1, 2, 3, 4, 5].map((star) => (
+            <span
+              key={star}
+              className={star <= rating ? "filled" : ""}
+              onClick={() => setRating(star)}
+            >
+              ★
+            </span>
+          ))}
+        </div>
+
+        <div className="modal-buttons">
+          <button type="submit">Submit</button>
+          <button type="button" onClick={() => setShowModal(false)}>
+            Cancel
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+)}
+
 
       {/* FLOATING ACTIONS */}
 <div className="floating-actions">
@@ -496,6 +698,12 @@ const prevPage = () => {
     <FaVideo size={20} color="#FF4500" />
     <span className="tooltip-text">Book Video Call</span>
   </a>
+</div>
+<div className="trust-badges">
+  <span>✔ Verified Purchase</span>
+  <span>🚚 Fast Delivery</span>
+  <span>🛡️ Authentic Product</span>
+  <span>🔄 Easy Returns</span>
 </div>
 
       <footer className="footer">

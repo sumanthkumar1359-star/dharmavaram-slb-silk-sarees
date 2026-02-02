@@ -6,6 +6,13 @@ function HeaderBar({ user, onLoginClick, onCartClick }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showSideMenu, setShowSideMenu] = useState(false);
+  const [showContactModal, setShowContactModal] = useState(false);
+  const getUsernameLettersOnly = (email) => {
+    if (!email) return "";
+    const username = email.split("@")[0];      // Get part before @
+    return username.replace(/[^a-zA-Z]/g, ""); // Remove everything except letters
+  };
+  
 
   return (
     <>
@@ -47,7 +54,11 @@ function HeaderBar({ user, onLoginClick, onCartClick }) {
               onMouseLeave={() => setShowDropdown(false)}
             >
               <div className="icon-wrapper">👤</div>
-              <span className="welcome-text">Welcome, {user.email}</span>
+             
+<span className="welcome-text">
+  Welcome, {getUsernameLettersOnly(user.email)}
+</span>
+
 
               {showDropdown && (
                 <div className="user-dropdown">
@@ -109,12 +120,50 @@ function HeaderBar({ user, onLoginClick, onCartClick }) {
           )}
 
           <h3 className="menu-section">Shop</h3>
-          <p>New Arrivals</p>
+         <p
+  onClick={() => {
+    document
+      .getElementById("products")
+      ?.scrollIntoView({ behavior: "smooth" });
+    setShowSideMenu(false);
+  }}
+>
+  New Arrivals
+</p>
+
           <p>Best Sellers</p>
           <p>Offers</p>
 
           <h3 className="menu-section">Support</h3>
-          <p>Contact Us</p>
+          <p onClick={() => setShowContactModal(true)}>Contact Us</p>
+          {showContactModal && (
+  <div
+    className="profile-modal-backdrop"
+    onClick={() => setShowContactModal(false)}
+  >
+    <div
+      className="profile-modal"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <h2>Contact Information</h2>
+
+      <p>
+        📞 <strong>+91 8309323239</strong>
+      </p>
+      <p>
+        📞 <strong>+91 7989117330</strong>
+      </p>
+
+      <button
+        className="close-btn"
+        onClick={() => setShowContactModal(false)}
+      >
+        Close
+      </button>
+    </div>
+  </div>
+)}
+
           <p>FAQ</p>
         </div>
       </div>

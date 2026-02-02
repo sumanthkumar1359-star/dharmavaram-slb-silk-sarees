@@ -48,7 +48,7 @@ const CartModal = ({ cart, onClose, onRemove, onCheckout }) => {
                 />
 
                 <img
-                  src={`/products/${item.folder}/1.jpg`}
+                  src={`/products/${item.folder}/1.jpeg`}
                   alt={item.name}
                   className="cart-item-img"
                 />

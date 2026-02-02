@@ -19,7 +19,7 @@ button:hover {
 
 /* ===== APP GAP (HEADER → BODY ≈ 2 INCH) ===== */
 .app {
-  padding-top: 60px;
+  padding-top: 40px;
 }
 
 /* ===== TOP BAR ===== */
@@ -95,7 +95,8 @@ button:hover {
 .welcome-text {
   font-size: 13px;
   font-weight: 600;
-  color: #333;
+  color: #0b0b0b;
+  background-color: #00b4ff;
 }
 
 /* ===== DROPDOWN ===== */
@@ -240,9 +241,9 @@ button:hover {
   font-size: 16px;
   letter-spacing: 0.5px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  margin-top: 0; /* removed gap below header */
   position: relative;
   z-index: 999;
+  
 }
 
 /* Optional: sparkle animation */

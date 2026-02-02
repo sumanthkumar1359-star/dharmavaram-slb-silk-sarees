@@ -129,10 +129,11 @@
 .checkout-btn {
   width: 100%;
   padding: 14px;
-  background: #eeff00;
+  background: #fff01e;
   color: #181212;
   font-size: 16px;
   border-radius: 10px;
+  border-color: #0f2027;
 
   /* 🔥 IMPORTANT FIX */
   border: none;
