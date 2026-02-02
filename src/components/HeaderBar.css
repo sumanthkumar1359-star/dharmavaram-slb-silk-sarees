@@ -343,7 +343,7 @@ html, body {
   /* Fix fixed header overlap on mobile */
   @media (max-width: 768px) {
     .app {
-      padding-top: 60px; /* header height + safe spacing */
+      padding-top: 40px; /* header height + safe spacing */
     }
   }
   
