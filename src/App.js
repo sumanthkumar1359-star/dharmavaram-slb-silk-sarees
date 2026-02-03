@@ -8,6 +8,13 @@ import { onAuthStateChanged } from "firebase/auth";
 import LoginModal from "./components/LoginModal";
 import HeaderBar from "./components/HeaderBar";
 import CartModal from "./components/CartModal";
+import { Routes, Route } from "react-router-dom";
+import Checkout from "./components/CheckOut";
+import Payment from "./components/Payment";
+import OrderSuccess from "./components/OrderSuccess";
+import MyOrders from "./components/MyOrders";
+
+
 
 /* Load product images */
 const getImages = (folder) => {
@@ -17,7 +24,6 @@ const getImages = (folder) => {
   }
   return images;
 };
-
 
 function App() {
   
@@ -45,6 +51,7 @@ const totalPages = Math.ceil(products.length / productsPerPage);
 const indexOfLastProduct = currentPage * productsPerPage;
 const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
 const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
 const [helpfulCounts, setHelpfulCounts] = useState({});
 const handleHelpfulClick = (id) => {
   setHelpfulCounts((prev) => ({
@@ -184,14 +191,7 @@ const prevPage = () => {
     setCart((prev) => prev.filter((item) => item.id !== id));
   };
 
-  const handleCheckout = (selectedItems) => {
-    if (!user) {
-      setShowCart(false);
-      setShowLoginModal(true);
-      return;
-    }
-    alert("Proceeding to checkout with " + selectedItems.length + " items");
-  };
+ 
 
   // ======== VIDEO ========
   const videoRef = useRef(null);
@@ -222,24 +222,7 @@ const prevPage = () => {
     return () => unsubscribe();
   }, []);
 
-  // ======== FETCH REVIEWS ========
-  useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const q = query(collection(db, "reviews"), orderBy("createdAt", "desc"));
-        const snapshot = await getDocs(q);
-        const data = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setReviews(data);
-      } catch (error) {
-        console.error("Error fetching reviews:", error);
-      }
-    };
-    fetchReviews();
-  }, []);
-
+  
   // ======== SUBMIT REVIEW ========
   const handleSubmitReview = async (e) => {
     e.preventDefault();
@@ -289,6 +272,12 @@ const prevPage = () => {
 
 
   return (
+       <Routes>
+
+{/* HOME PAGE */}
+<Route
+  path="/"
+  element={
     <div className="app">
 
       {/* LOGIN MODAL */}
@@ -310,13 +299,16 @@ const prevPage = () => {
 
       {/* CART MODAL */}
       {showCart && (
-        <CartModal
-          cart={cart}
-          onClose={() => setShowCart(false)}
-          onRemove={removeFromCart}
-          onCheckout={handleCheckout}
-          user={user}
-        />
+       <CartModal
+       cart={cart}
+       user={user}
+       onClose={() => setShowCart(false)}
+       onRemove={removeFromCart}
+       onLoginClick={() => {
+         setShowCart(false);
+         setShowLoginModal(true);
+       }}
+     />
       )}
 
  
@@ -708,9 +700,20 @@ const prevPage = () => {
 
       <footer className="footer">
         © 2026 Dharmavaram SLB Silk Sarees
-      </footer>
-    </div>
-  );
-}
+      </footer>   
+         </div>
+    }
+  />
+     {/* OTHER PAGES */}
+     <Route path="/checkout" element={<Checkout />} />
+<Route path="/payment" element={<Payment />} />
+<Route path="/order-success/:orderId" element={<OrderSuccess />} />
+<Route path="/my-orders" element={<MyOrders />} />
 
+
+
+    </Routes>
+
+);
+}
 export default App;
